@@ -1,0 +1,71 @@
+// Lab02-BasicOp.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+
+using namespace std;
+using namespace cv;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	// Allocate memory for images.
+	Mat img1 = imread("C:\\Users\\Pongsaphak\\Documents\\bnk\\cherprang.jpg",IMREAD_COLOR);
+	//Mat img2 = imread(C:\\Users\\Pongsaphak\\Documents\\bnk\\cherprang.jpg");
+	//Mat img1(400, 400, CV_8UC1);
+	Mat img2(img1.size() , img1.type());
+	Mat result(img1.size(), img1.type());
+
+//	IplImage *img1 = cvCreateImage(cvSize(200,200), IPL_DEPTH_8U, 1);
+//	IplImage *img2 = cvCreateImage(cvSize(200,200), IPL_DEPTH_8U, 1);
+//	IplImage *result = cvCreateImage(cvSize(200,200), IPL_DEPTH_8U, 1);
+
+	// cvCreateImage() does not initialize image memory, a noisy image.
+	namedWindow("Image1");
+	imshow("Image1", img1);
+	waitKey();
+
+	// result image may not be initialized, it will be fill by operation later.
+	//img1 = img1.zeros(img1.size(), img1.type());
+	img2 = img2.zeros(img2.size(), img2.type());
+
+	// Negative thickness draw a color filled circle.
+	//circle(img1, Point(150,150), 80, CV_RGB(255,255,255), -1);
+	
+		rectangle(img2, Rect(), CV_RGB(255,255,255), -1);
+	
+	
+
+	imshow("Image1", img1);
+	namedWindow("Image2");
+	imshow("Image2", img2);
+
+
+	// Basic operation "and"
+	bitwise_and(img1, img2, result);
+
+	namedWindow("Result");
+	imshow("Result", result);
+	waitKey();
+
+	// Basic operation "or"
+	bitwise_or(img1, img2, result);
+	imshow("Result", result);
+	waitKey();
+
+	// Basic operation "xor"
+	bitwise_xor(img1, img2, result);
+	imshow("Result", result);
+	waitKey();
+
+	// Deallocate memory of images.
+//	cvReleaseImage(&img1);
+//	cvReleaseImage(&img2);
+//	cvReleaseImage(&result);
+
+
+	return 0;
+}
+
